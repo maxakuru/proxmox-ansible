@@ -1,0 +1,19 @@
+{
+    "yaml.schemas": {
+        "https://json.schemastore.org/traefik-v2-file-provider.json": [
+            "**/config/traefik.yml"
+        ],
+        "https://json.schemastore.org/traefik-v2.json": [
+            "**/templates/traefik.yml.j2"
+        ],
+        "https://raw.githubusercontent.com/ansible/schemas/main/f/ansible.json#/$defs/playbook": [
+            "**/playbooks/traefik.yml"
+        ],
+        "Traefik v2": [
+            ""
+        ],
+        "https://raw.githubusercontent.com/ansible/schemas/main/f/ansible-inventory.json": "file:///Volumes/orch/ansible/production.yml"
+    },
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2
+}

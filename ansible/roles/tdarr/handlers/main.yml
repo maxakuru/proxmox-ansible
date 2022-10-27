@@ -1,0 +1,12 @@
+---
+- name: start tdarr-server
+  systemd:
+    name: tdarr-server
+    state: started
+    enabled: yes
+
+- name: start tdarr-node
+  systemd:
+    name: tdarr-node
+    state: started
+    enabled: yes

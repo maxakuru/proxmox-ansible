@@ -1,0 +1,12 @@
+---
+http:
+  routers:
+    to-sonarr:
+      rule: "Host(`tv.test`)"
+      service: sonarr
+
+  services:
+    sonarr:
+      loadBalancer:
+        servers:
+          - url: http://sonarr.max.local:8989

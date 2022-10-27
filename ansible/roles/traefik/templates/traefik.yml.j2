@@ -1,0 +1,28 @@
+# yaml-language-server: $schema=https://json.schemastore.org/traefik-v2.json
+---
+entryPoints:
+  web:
+    address: :80
+
+  websecure:
+    address: :443
+
+providers:
+  file:
+    directory: /etc/traefik/config
+    watch: true
+
+api:
+  dashboard: true
+  insecure: true
+
+accessLog:
+  filePath: "/mnt/appdata/traefik/logs/access.log"
+
+certificatesResolvers:
+  letsencrypt:
+    acme:
+      email: "{{ acme_email }}"
+      storage: /mnt/appdata/traefik/acme.json
+      dnsChallenge:
+        provider: "cloudflare"

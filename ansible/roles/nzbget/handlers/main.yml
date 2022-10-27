@@ -1,0 +1,12 @@
+---
+- name: start nzbget
+  systemd:
+    name: nzbget
+    state: started
+    enabled: yes
+
+- name: restart nzbget
+  systemd:
+    name: nzbget
+    state: restarted
+    daemon_reload: yes

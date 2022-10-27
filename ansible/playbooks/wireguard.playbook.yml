@@ -1,0 +1,5 @@
+---
+- hosts: wireguard
+  roles:
+    - { role: common, tags: all }
+    - { role: wireguard, tags: wireguard }

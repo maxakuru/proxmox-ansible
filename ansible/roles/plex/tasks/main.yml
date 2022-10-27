@@ -1,0 +1,55 @@
+---
+- name: Include vars
+  ansible.builtin.include_vars: ../../../../data/ansible/ansible_vars.yml
+
+- name: Install packages
+  apt:
+    pkg:
+      - apt-transport-https
+      - gnupg
+    state: latest
+
+- name: Create Plex group
+  ansible.builtin.group:
+    name: plex
+    gid: "{{ media_group }}"
+    state: present
+
+- name: Create Plex user
+  ansible.builtin.user:
+    name: plex
+    group: plex
+    uid: "{{ default_user }}"
+    shell: /sbin/nologin
+    state: present
+    create_home: false
+
+- name: Add the Plex repository Apt signing key
+  ansible.builtin.apt_key:
+    url: https://downloads.plex.tv/plex-keys/PlexSign.key
+    state: present
+    keyring: /etc/apt/trusted.gpg.d/plexmediaserver.gpg
+
+- name: Add Plex repository
+  ansible.builtin.apt_repository:
+    repo: deb https://downloads.plex.tv/repo/deb public main
+    state: present
+    filename: plexmediaserver
+  changed_when: false
+
+- name: Install Plex package
+  apt:
+    name: plexmediaserver
+    state: present
+    update_cache: true
+  notify: restart plex
+
+- name: Copy systemd service file to server
+  ansible.builtin.copy:
+    src: plexmediaserver.service
+    dest: /etc/systemd/user
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - start plex

@@ -1,0 +1,12 @@
+---
+http:
+  routers:
+    to-radarr:
+      rule: "Host(`movies.test`)"
+      service: radarr
+
+  services:
+    radarr:
+      loadBalancer:
+        servers:
+          - url: http://radarr.max.local:7878

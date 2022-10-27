@@ -1,0 +1,12 @@
+---
+http:
+  routers:
+    to-bazarr:
+      rule: "Host(`bazarr.test`)"
+      service: bazarr
+
+  services:
+    bazarr:
+      loadBalancer:
+        servers:
+          - url: http://bazarr.max.local:6767

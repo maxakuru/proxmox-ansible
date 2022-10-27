@@ -1,0 +1,58 @@
+---
+- name: Include vars
+  ansible.builtin.include_vars: ../../../../data/ansible/ansible_vars.yml
+
+- name: Install Traefik
+  ansible.builtin.unarchive:
+    src: https://github.com/traefik/traefik/releases/download/v2.9.1/traefik_v2.9.1_linux_amd64.tar.gz
+    dest: /usr/local/bin
+    remote_src: true
+  notify:
+    - restart traefik
+
+- name: Create Traefik group
+  ansible.builtin.group:
+    name: traefik
+    gid: "{{ default_group }}"
+    state: present
+
+- name: Create Traefik user
+  ansible.builtin.user:
+    name: traefik
+    group: traefik
+    uid: "{{ default_user }}"
+    shell: /sbin/nologin
+    state: present
+    create_home: false
+
+- name: Set port binding capability on Traefik
+  community.general.capabilities:
+    path: /usr/local/bin/traefik
+    capability: cap_net_bind_service+ep
+    state: present
+
+- name: Copy Traefik config
+  ansible.builtin.copy:
+    src: traefik
+    dest: /etc
+    mode: 0755
+  notify:
+    - restart traefik
+
+- name: Create Traefik config file
+  ansible.builtin.template:
+    src: traefik.yml.j2
+    dest: /etc/traefik/traefik.yml
+    mode: 0644
+  notify:
+    - restart traefik
+
+- name: Create Traefik service
+  ansible.builtin.template:
+    src: traefik.service.j2
+    dest: /etc/systemd/system/traefik.service
+    mode: 0644
+    owner: root
+    group: root
+  notify:
+    - start traefik

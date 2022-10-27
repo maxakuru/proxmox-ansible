@@ -1,0 +1,12 @@
+---
+http:
+  routers:
+    to-plex:
+      rule: "Host(`plex.test`)"
+      service: plex
+
+  services:
+    plex:
+      loadBalancer:
+        servers:
+          - url: http://plex.max.local:32400

@@ -1,0 +1,12 @@
+---
+http:
+  routers:
+    to-lidarr:
+      rule: "Host(`music.test`)"
+      service: lidarr
+
+  services:
+    lidarr:
+      loadBalancer:
+        servers:
+          - url: http://lidarr.max.local:8686

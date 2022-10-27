@@ -1,0 +1,5 @@
+---
+- hosts: nextcloud
+  roles:
+    - { role: common, tags: all }
+    - { role: nextcloud, tags: nextcloud }

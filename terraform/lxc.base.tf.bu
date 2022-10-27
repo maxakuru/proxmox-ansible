@@ -1,0 +1,42 @@
+// this creates a container that should be converted into a template, that's then used for the base of other containers
+// an intermediate step of adding lxc.idmap entries to /etc/pve/lxc/8008.conf on the host is needed
+// example:
+# lxc.idmap: u 0 100000 1000
+# lxc.idmap: g 0 100000 1000
+# lxc.idmap: u 1000 1000 5
+# lxc.idmap: g 1000 1000 5
+# lxc.idmap: u 1006 101006 64530
+# lxc.idmap: g 1006 101006 64530
+// then remove the state: terraform state rm 'proxmox_lxc.base'
+
+resource "proxmox_lxc" "tf-base-deb" {
+  target_node     = "pve"
+  hostname        = "tf-base-deb"
+  ostemplate      = "local:vztmpl/debian-11-standard_11.3-1_amd64.tar.zst"
+  unprivileged    = true
+  ssh_public_keys = file(var.pub_ssh_key)
+  start           = false
+  onboot          = false
+  vmid            = var.base_lxcid
+  memory          = 1024
+  swap            = 512
+  cores           = 1
+  password        = var.temp_root_password
+
+  features {
+    nesting = true
+  }
+
+  rootfs {
+    storage = "ssd-safe-zfs"
+    size    = "4G"
+  }
+
+  network {
+    name   = "eth0"
+    bridge = "vmbr0"
+    gw     = var.gateway_ip
+    ip     = "dhcp"
+    ip6    = "auto"
+  }
+}

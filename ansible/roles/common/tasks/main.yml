@@ -1,0 +1,19 @@
+---
+- name: Upgrade dependencies
+  ansible.builtin.apt:
+    update_cache: true
+    upgrade: full
+  tags: always
+
+# - name: Mitigation for SystemD SSH Socket race condition
+#   ansible.builtin.lineinfile:
+#     path: /lib/systemd/system/ssh@.service
+#     insertafter: '^#[Service]'
+#     regexp: '^RuntimeDirectoryPreserve='
+#     line: RuntimeDirectoryPreserve=yes
+
+- name: Set authorized key
+  ansible.posix.authorized_key:
+    user: root
+    state: present
+    key: "{{ lookup('file', '/mnt/.ssh/orch/pub/id_rsa.pub') }}"

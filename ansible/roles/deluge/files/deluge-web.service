@@ -1,0 +1,19 @@
+[Unit]
+Description=Deluge Web UI
+After=deluged.service
+
+[Service]
+ExecStart=/usr/bin/deluge-web -d -c /mnt/appdata/deluge/config
+User=deluge
+Group=deluge
+Type=simple
+Restart=on-failure
+RestartSec=5
+StartLimitInterval=60s
+StartLimitBurst=3
+SyslogIdentifier=Deluge Web UI
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

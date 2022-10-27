@@ -1,0 +1,12 @@
+---
+- name: start plex
+  systemd:
+    name: plexmediaserver
+    state: started
+    enabled: true
+
+- name: restart plex
+  systemd:
+    name: plexmediaserver
+    state: restarted
+    daemon_reload: true

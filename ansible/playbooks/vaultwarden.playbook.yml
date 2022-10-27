@@ -1,0 +1,5 @@
+---
+- hosts: vaultwarden
+  roles:
+    - { role: common, tags: all }
+    - { role: vaultwarden, tags: vaultwarden }

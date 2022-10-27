@@ -1,0 +1,46 @@
+---
+- name: Include vars
+  ansible.builtin.include_vars: ../../../../data/ansible/ansible_vars.yml
+
+- name: Create group
+  ansible.builtin.group:
+    name: lidarr
+    gid: "{{ default_group }}"
+    state: present
+
+- name: Create user
+  ansible.builtin.user:
+    name: lidarr
+    group: lidarr
+    uid: "{{ default_user }}"
+    shell: /sbin/nologin
+    state: present
+    create_home: false
+
+- name: Install required packages
+  apt:
+    pkg:
+      - curl
+      - mediainfo
+      - sqlite3
+      - libchromaprint-tools
+    state: latest
+
+- name: Install Lidarr
+  unarchive:
+    src: https://github.com/Lidarr/Lidarr/releases/download/v0.8.1.2135/Lidarr.master.0.8.1.2135.linux-core-x64.tar.gz
+    dest: /opt/
+    remote_src: true
+    creates: /opt/Lidarr
+    group: lidarr
+    owner: lidarr
+
+- name: Copy systemd service file to server
+  copy:
+    src: lidarr.service
+    dest: /etc/systemd/system
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - start lidarr

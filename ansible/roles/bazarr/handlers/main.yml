@@ -1,0 +1,6 @@
+---
+- name: start bazarr
+  systemd:
+    name: bazarr
+    state: restarted
+    enabled: true

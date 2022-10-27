@@ -1,0 +1,18 @@
+---
+- import_playbook: ./playbooks/traefik.playbook.yml
+- import_playbook: ./playbooks/plex.playbook.yml
+- import_playbook: ./playbooks/bazarr.playbook.yml
+- import_playbook: ./playbooks/deluge.playbook.yml
+- import_playbook: ./playbooks/lidarr.playbook.yml
+- import_playbook: ./playbooks/nzbget.playbook.yml
+- import_playbook: ./playbooks/prowlarr.playbook.yml
+- import_playbook: ./playbooks/radarr.playbook.yml
+- import_playbook: ./playbooks/sonarr.playbook.yml
+# - import_playbook: ./playbooks/tdarr.playbook.yml
+- import_playbook: ./playbooks/wireguard.playbook.yml
+# - import_playbook: ./playbooks/plexmetamanager.playbook.yml
+- import_playbook: ./playbooks/overseerr.playbook.yml
+# - import_playbook: ./playbooks/readarr.playbook.yml
+# - import_playbook: ./playbooks/vaultwarden.playbook.yml
+# - import_playbook: ./playbooks/dash.playbook.yml
+# - import_playbook: ./playbooks/nextcloud.playbook.yml

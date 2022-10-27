@@ -1,0 +1,12 @@
+---
+- name: start prowlarr
+  systemd:
+    name: prowlarr
+    state: started
+    enabled: yes
+
+- name: restart prowlarr
+  systemd:
+    name: prowlarr
+    state: restarted
+    daemon_reload: yes

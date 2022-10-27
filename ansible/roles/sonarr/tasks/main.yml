@@ -1,0 +1,56 @@
+---
+- name: Include vars
+  ansible.builtin.include_vars: ../../../../data/ansible/ansible_vars.yml
+
+- name: Create Sonarr group
+  group:
+    name: sonarr
+    gid: "{{ media_group }}"
+    state: present
+
+- name: Create user
+  ansible.builtin.user:
+    name: sonarr
+    group: sonarr
+    uid: "{{ default_user }}"
+    shell: /sbin/nologin
+    state: present
+    create_home: false
+
+- name: Install packages
+  apt:
+    pkg:
+      - ca-certificates
+      - gnupg
+    state: latest
+
+- name: Add Sonarr project apt key
+  ansible.builtin.apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: 2009837CBFFD68F45BC180471F4F90DE2A9B4BF8
+    keyring: /etc/apt/trusted.gpg.d/sonarr.gpg
+
+- name: Add the Sonarr repository
+  apt_repository:
+    repo: deb https://apt.sonarr.tv/ubuntu focal main
+    filename: sonarr
+    state: present
+
+- name: Update repo cache
+  changed_when: false
+  apt:
+    update_cache: true
+
+- name: Install Sonarr
+  apt:
+    pkg:
+      - sonarr
+    state: latest
+
+- name: Recursively change ownership of sonarr directory
+  ansible.builtin.file:
+    path: /usr/lib/sonarr
+    state: directory
+    recurse: yes
+    owner: sonarr
+    group: sonarr

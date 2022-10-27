@@ -1,0 +1,5 @@
+---
+- hosts: plex
+  roles:
+    - { role: common, tags: all }
+    - { role: plex, tags: plex }

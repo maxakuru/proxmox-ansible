@@ -1,0 +1,5 @@
+---
+- hosts: readarr
+  roles:
+    - { role: common, tags: all }
+    - { role: readarr, tags: readarr }

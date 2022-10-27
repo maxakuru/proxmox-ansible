@@ -1,0 +1,19 @@
+[Unit]
+Description=Deluge Daemon
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/deluged -d -P %h/.config/deluge/deluge.pid
+User=deluge
+Group=deluge
+Type=simple
+Restart=on-failure
+RestartSec=5
+StartLimitInterval=60s
+StartLimitBurst=3
+SyslogIdentifier=Deluge Daemon
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

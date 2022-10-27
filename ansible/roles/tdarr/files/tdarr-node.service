@@ -1,0 +1,12 @@
+[Unit]
+Description=Tdarr Node
+After=tdarr-server.service
+Requires=tdarr-server.service
+
+[Service]
+User=tdarr
+Group=tdarr
+Restart=on-failure
+RestartSec=3
+WorkingDirectory=/opt/tdarr/
+ExecStart=/opt/tdarr/Tdarr_Node/Tdarr_Node

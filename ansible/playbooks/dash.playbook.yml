@@ -1,0 +1,5 @@
+---
+- hosts: dash
+  roles:
+    - { role: common, tags: all }
+    - { role: dash, tags: dash }

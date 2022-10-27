@@ -1,0 +1,12 @@
+---
+http:
+  routers:
+    to-deluge:
+      rule: "Host(`torrents.test`)"
+      service: deluge
+
+  services:
+    deluge:
+      loadBalancer:
+        servers:
+          - url: http://deluge.max.local:8112

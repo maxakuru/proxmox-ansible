@@ -1,0 +1,5 @@
+---
+- hosts: plexmetamanager
+  roles:
+    - { role: common, tags: all }
+    - { role: plexmetamanager, tags: plexmetamanager }

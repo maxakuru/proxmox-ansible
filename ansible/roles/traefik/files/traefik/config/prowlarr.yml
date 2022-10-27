@@ -1,0 +1,12 @@
+---
+http:
+  routers:
+    to-prowlarr:
+      rule: "Host(`prowlarr.test`)"
+      service: prowlarr
+
+  services:
+    prowlarr:
+      loadBalancer:
+        servers:
+          - url: http://prowlarr.max.local:9696

@@ -1,0 +1,74 @@
+---
+- name: Include vars
+  ansible.builtin.include_vars: ../../../../data/ansible/ansible_vars.yml
+
+- name: Install packages
+  apt:
+    pkg:
+      - apt-transport-https
+      - gnupg
+    state: latest
+
+- name: Create group
+  ansible.builtin.group:
+    name: deluge
+    gid: "{{ media_group }}"
+    state: present
+
+- name: Create user
+  ansible.builtin.user:
+    name: deluge
+    group: deluge
+    uid: "{{ default_user }}"
+    shell: /sbin/nologin
+    state: present
+    create_home: false
+
+# - name: Add the Plex repository Apt signing key
+#   ansible.builtin.apt_key:
+#     url: https://downloads.plex.tv/plex-keys/PlexSign.key
+#     state: present
+#     keyring: /etc/apt/trusted.gpg.d/plexmediaserver.gpg
+
+- name: Add Deluge PPA apt key
+  ansible.builtin.apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: 8EED8FB4A8E6DA6DFDF0192BC5E6A5ED249AD24C
+    keyring: /etc/apt/trusted.gpg.d/deluge.gpg
+
+- name: Add Deluge PPA for ubuntu groovy	(debian 11)
+  ansible.builtin.apt_repository:
+    repo: deb https://ppa.launchpadcontent.net/deluge-team/stable/ubuntu groovy main
+    state: present
+
+- name: Install deluge packages
+  apt:
+    pkg:
+      - deluged
+      - deluge-web
+      - deluge-console
+    state: present
+    update_cache: true
+  notify:
+    - restart deluged
+    - restart deluge-web
+
+- name: Copy daemon service
+  copy:
+    src: deluged.service
+    dest: /etc/systemd/system
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - start deluged
+
+- name: Copy web service
+  copy:
+    src: deluge-web.service
+    dest: /etc/systemd/system
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - start deluge-web

@@ -1,0 +1,12 @@
+---
+http:
+  routers:
+    to-homeassistant:
+      rule: "Host(`home.test`) || Host(`homeassistant.test`)"
+      service: homeassistant
+
+  services:
+    homeassistant:
+      loadBalancer:
+        servers:
+          - url: http://home.max.local:8123

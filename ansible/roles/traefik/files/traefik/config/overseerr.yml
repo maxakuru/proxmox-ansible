@@ -1,0 +1,17 @@
+---
+http:
+  routers:
+    to-overseerr:
+      rule: "Host(`overseerr.test`)"
+      service: overseerr
+    to-overseerr-secure:
+      rule: Host(`tv.{{ env "DOMAIN_1" }}`)
+      service: overseerr
+      tls:
+        certResolver: letsencrypt
+
+  services:
+    overseerr:
+      loadBalancer:
+        servers:
+          - url: http://overseerr.max.local:5055

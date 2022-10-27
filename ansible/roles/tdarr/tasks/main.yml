@@ -1,0 +1,124 @@
+---
+- name: Include vars
+  ansible.builtin.include_vars: ../../../../data/ansible/ansible_vars.yml
+  
+- name: Create group
+  ansible.builtin.group:
+    name: tdarr
+    gid: "{{ default_group }}"
+    state: present
+
+- name: Create user
+  ansible.builtin.user:
+    name: tdarr
+    group: tdarr
+    uid: "{{ default_user }}"
+    shell: /sbin/nologin
+    state: present
+    create_home: false
+
+- name: Install packages
+  apt:
+    pkg:
+      - unzip
+      - gnupg
+      - software-properties-common
+      - appstream 
+      - autoconf 
+      - automake 
+      - autopoint 
+      - build-essential 
+      - cmake 
+      - git 
+      - libass-dev 
+      - libbz2-dev 
+      - libfontconfig1-dev 
+      - libfreetype6-dev 
+      - libfribidi-dev 
+      - libharfbuzz-dev 
+      - libjansson-dev 
+      - liblzma-dev 
+      - libmp3lame-dev 
+      - libnuma-dev 
+      - libogg-dev 
+      - libopus-dev 
+      - libsamplerate-dev 
+      - libspeex-dev 
+      - libtheora-dev 
+      - libtool 
+      - libtool-bin 
+      - libturbojpeg0-dev 
+      - libvorbis-dev 
+      - libx264-dev 
+      - libxml2-dev 
+      - libvpx-dev 
+      - m4 
+      - make
+      - meson 
+      - nasm 
+      - ninja-build 
+      - patch 
+      - pkg-config 
+      - python 
+      - tar 
+      - zlib1g-dev
+    state: latest
+
+- name: Add Handbrake PPA apt key
+  ansible.builtin.apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: 43D3A9F60C58A7169778E6FB8771ADB0816950D8
+    keyring: /etc/apt/trusted.gpg.d/handbrake.gpg
+
+- name: Add Handbrake PPA for ubuntu eoan
+  ansible.builtin.apt_repository:
+    repo: deb https://ppa.launchpadcontent.net/stebbins/handbrake-git-snapshots/ubuntu eoan main
+    state: present
+
+- name: Install video transcoding packages
+  apt:
+    pkg:
+      - ffmpeg
+      - handbrake-cli
+    state: latest
+    update_cache: yes
+
+- name: Install Tdarr Updater
+  unarchive:
+    src: https://f000.backblazeb2.com/file/tdarrs/versions/2.00.15/linux_x64/Tdarr_Updater.zip
+    dest: /opt/tdarr
+    remote_src: yes
+
+- name: Download Tdarr Node and Server
+  ansible.builtin.command:
+    argv:
+      - /opt/tdarr/Tdarr_Updater
+    creates: /opt/tdarr/Tdarr_Server
+
+- name: Recursively change ownership of Tdarr directory
+  ansible.builtin.file:
+    path: /opt/tdarr/
+    state: directory
+    recurse: yes
+    owner: tdarr
+    group: tdarr
+
+- name: Copy node service
+  copy:
+    src: tdarr-node.service
+    dest: /etc/systemd/user
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - start tdarr-node
+
+- name: Copy server service
+  copy:
+    src: tdarr-server.service
+    dest: /etc/systemd/user
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - start tdarr-server
