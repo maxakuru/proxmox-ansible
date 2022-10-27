@@ -1,4 +1,7 @@
-# cloud-orch
+# proxmox-ansible
+
+Terraform + Ansible setup for various LXCs managed by Proxmox and based on Debian. Mountpoints on non-priviledged containers will require  lxcid mappings to users with mountpoint access. I use a base container template with appropriate config; manually would work too. Sample & details in `lxc.base.tf.bu`.
+
 
 ### Terraform
 `cd terraform`
