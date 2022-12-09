@@ -5,7 +5,7 @@
 - name: Create group
   ansible.builtin.group:
     name: lidarr
-    gid: "{{ default_group }}"
+    gid: "{{ media_group }}"
     state: present
 
 - name: Create user

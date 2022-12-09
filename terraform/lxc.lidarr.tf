@@ -30,6 +30,24 @@ resource "proxmox_lxc" "lidarr" {
     volume  = "/mnt/pve/safe/appdata/lidarr"
   }
 
+  mountpoint {
+    mp      = "/mnt/storage/media/music"
+    size    = "8G"
+    slot    = 1
+    key     = "1"
+    storage = "/mnt/big/media/music"
+    volume  = "/mnt/big/media/music"
+  }
+
+  mountpoint {
+    mp      = "/mnt/storage/downloads"
+    size    = "8G"
+    slot    = 2
+    key     = "2"
+    storage = "/mnt/big/downloads"
+    volume  = "/mnt/big/downloads"
+  }
+
   network {
     name   = "eth0"
     bridge = "vmbr0"
@@ -42,6 +60,8 @@ resource "proxmox_lxc" "lidarr" {
   lifecycle {
     ignore_changes = [
       mountpoint[0].storage,
+      mountpoint[1].storage,
+      mountpoint[2].storage,
     ]
   }
 }

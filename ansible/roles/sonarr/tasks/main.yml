@@ -54,3 +54,13 @@
     recurse: yes
     owner: sonarr
     group: sonarr
+
+- name: Copy systemd service file to server
+  copy:
+    src: sonarr.service
+    dest: /lib/systemd/system
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - start sonarr

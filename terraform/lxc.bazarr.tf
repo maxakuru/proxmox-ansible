@@ -30,6 +30,15 @@ resource "proxmox_lxc" "bazarr" {
     volume  = "/mnt/big/appdata/bazarr"
   }
 
+  mountpoint {
+    mp      = "/mnt/storage/media"
+    size    = "8G"
+    slot    = 1
+    key     = "1"
+    storage = "/mnt/big/media"
+    volume  = "/mnt/big/media"
+  }
+
   network {
     name   = "eth0"
     bridge = "vmbr0"
@@ -42,6 +51,7 @@ resource "proxmox_lxc" "bazarr" {
   lifecycle {
     ignore_changes = [
       mountpoint[0].storage,
+      mountpoint[1].storage,
     ]
   }
 }

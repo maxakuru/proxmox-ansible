@@ -1,6 +1,6 @@
 ---
-- name: start bazarr
+- name: start sonarr
   systemd:
-    name: bazarr
+    name: sonarr
     state: restarted
     enabled: true

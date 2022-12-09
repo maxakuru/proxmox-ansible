@@ -32,12 +32,21 @@ resource "proxmox_lxc" "sonarr" {
   }
 
   mountpoint {
-    mp      = "/mnt/storage/media"
+    mp      = "/mnt/storage/media/tv"
     size    = "8G"
     slot    = 1
     key     = "1"
-    storage = "/mnt/big/media"
-    volume  = "/mnt/big/media"
+    storage = "/mnt/big/media/tv"
+    volume  = "/mnt/big/media/tv"
+  }
+
+  mountpoint {
+    mp      = "/mnt/storage/downloads"
+    size    = "8G"
+    slot    = 2
+    key     = "2"
+    storage = "/mnt/big/downloads"
+    volume  = "/mnt/big/downloads"
   }
 
   network {
@@ -53,6 +62,7 @@ resource "proxmox_lxc" "sonarr" {
     ignore_changes = [
       mountpoint[0].storage,
       mountpoint[1].storage,
+      mountpoint[2].storage,
     ]
   }
 }

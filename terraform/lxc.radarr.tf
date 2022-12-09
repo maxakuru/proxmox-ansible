@@ -32,12 +32,21 @@ resource "proxmox_lxc" "radarr" {
   }
 
   mountpoint {
-    mp      = "/mnt/storage/media"
+    mp      = "/mnt/storage/media/movies"
     size    = "8G"
     slot    = 1
     key     = "1"
-    storage = "/mnt/big/media"
-    volume  = "/mnt/big/media"
+    storage = "/mnt/big/media/movies"
+    volume  = "/mnt/big/media/movies"
+  }
+
+  mountpoint {
+    mp      = "/mnt/storage/downloads"
+    size    = "8G"
+    slot    = 2
+    key     = "2"
+    storage = "/mnt/big/downloads"
+    volume  = "/mnt/big/downloads"
   }
 
   network {
@@ -53,6 +62,7 @@ resource "proxmox_lxc" "radarr" {
     ignore_changes = [
       mountpoint[0].storage,
       mountpoint[1].storage,
+      mountpoint[2].storage,
     ]
   }
 }

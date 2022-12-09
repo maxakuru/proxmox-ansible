@@ -61,10 +61,10 @@ d /run/sshd 0755 root root
 - dash
 - readarr
 - nextcloud
-- openvpn/wireguard
-- overseerr
+- wireguard
 - plexmetamanager
 - vaultwarden
+- vscode server
 
 ### Misc
 

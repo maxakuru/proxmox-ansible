@@ -5,14 +5,14 @@
 - name: Create group
   ansible.builtin.group:
     name: bazarr
-    gid: "{{ default_group }}"
+    gid: "{{ media_group }}"
     state: present
 
 - name: Create user
   ansible.builtin.user:
     name: bazarr
     group: bazarr
-    uid: "{{ default_user }}"
+    uid: "{{ media_user }}"
     shell: /sbin/nologin
     state: present
     create_home: false
@@ -44,13 +44,13 @@
   pip:
     requirements: /opt/bazarr/requirements.txt
 
-# - name: Recursively change ownership of Bazarr directory
-#   ansible.builtin.file:
-#     path: /opt/bazarr/
-#     state: directory
-#     recurse: true
-#     owner: bazarr
-#     group: bazarr
+- name: Recursively change ownership of Bazarr directory
+  ansible.builtin.file:
+    path: /opt/bazarr/
+    state: directory
+    recurse: true
+    owner: bazarr
+    group: bazarr
 
 - name: Copy systemd service file to server
   copy:

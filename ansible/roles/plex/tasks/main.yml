@@ -19,7 +19,7 @@
   ansible.builtin.user:
     name: plex
     group: plex
-    uid: "{{ default_user }}"
+    uid: "{{ media_user }}"
     shell: /sbin/nologin
     state: present
     create_home: false
@@ -47,7 +47,7 @@
 - name: Copy systemd service file to server
   ansible.builtin.copy:
     src: plexmediaserver.service
-    dest: /etc/systemd/user
+    dest: /etc/systemd/system
     owner: root
     group: root
     mode: 0644
