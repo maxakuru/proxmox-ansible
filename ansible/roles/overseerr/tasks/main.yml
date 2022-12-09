@@ -58,7 +58,7 @@
     name: overseerr
     image: sctx/overseerr
     restart: true
-    restart_policy: "unless_stopped"
+    restart_policy: "unless-stopped"
     volumes:
       - /mnt/appdata/overseerr:/app/config
     published_ports:
