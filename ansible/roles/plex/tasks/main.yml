@@ -44,10 +44,10 @@
     update_cache: true
   notify: restart plex
 
-- name: Copy systemd service file to server
+- name: Copy systemd override file to server
   ansible.builtin.copy:
-    src: plexmediaserver.service
-    dest: /etc/systemd/system
+    src: override.service
+    dest: /etc/systemd/system/plexmediaserver.service.d
     owner: root
     group: root
     mode: 0644
