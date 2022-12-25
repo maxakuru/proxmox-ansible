@@ -101,6 +101,11 @@ variable "wireguard_ip" {
   default = "192.168.1.26/24"
 }
 
+variable "omada_ip" {
+  type    = string
+  default = "192.168.1.27/24"
+}
+
 // ---- 80 ----
 
 // smarthome

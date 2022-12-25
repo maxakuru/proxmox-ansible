@@ -1,0 +1,5 @@
+---
+- hosts: omada
+  roles:
+    - { role: common, tags: all }
+    - { role: omada, tags: omada }

@@ -19,6 +19,7 @@ all:
         vaultwarden.max.local:
         dash.max.local:
         wireguard.max.local:
+        omada.max.local:
         
     traefik:
       hosts:
@@ -71,3 +72,6 @@ all:
     wireguard:
       hosts:
         wireguard.max.local:
+    omada:
+      hosts:
+        omada.max.local:

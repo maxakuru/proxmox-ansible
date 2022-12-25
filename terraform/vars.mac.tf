@@ -96,6 +96,11 @@ variable "wireguard_mac" {
   default = "46:C8:F9:D1:A5:1C"
 }
 
+variable "omada_mac" {
+  type    = string
+  default = "46:C8:F9:D1:A5:1D"
+}
+
 // smarthome
 
 # variable "homeassistant_mac" {

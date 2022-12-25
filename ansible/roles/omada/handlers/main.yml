@@ -1,0 +1,6 @@
+---
+- name: start omada
+  systemd:
+    name: tpeap
+    state: restarted
+    enabled: true

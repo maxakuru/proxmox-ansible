@@ -17,3 +17,6 @@
     user: root
     state: present
     key: "{{ lookup('file', '/mnt/.ssh/orch/pub/id_rsa.pub') }}"
+
+- name: Include versions
+  ansible.builtin.include_vars: ../../../host_vars/versions.yml

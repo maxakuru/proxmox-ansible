@@ -108,6 +108,11 @@ variable "wireguard_lxcid" {
   default = 526
 }
 
+variable "omada_lxcid" {
+  type    = string
+  default = 527
+}
+
 // ---- 80 ----
 
 // smarthome

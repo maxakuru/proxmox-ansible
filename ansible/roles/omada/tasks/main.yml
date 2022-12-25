@@ -1,0 +1,65 @@
+---
+- name: Include vars
+  ansible.builtin.include_vars: ../../../../data/ansible/ansible_vars.yml
+
+- name: Create group
+  ansible.builtin.group:
+    name: omada
+    gid: "{{ media_group }}"
+    state: present
+
+- name: Create user
+  ansible.builtin.user:
+    name: omada
+    group: omada
+    uid: "{{ default_user }}"
+    shell: /sbin/nologin
+    state: present
+    create_home: false
+
+- name: Install prereqs
+  apt:
+    pkg:
+      - apt-transport-https
+      - gnupg
+    state: latest
+
+- name: Install Java 8
+  ansible.builtin.apt:
+    deb: http://snapshot.debian.org/archive/debian-security/20220210T090326Z/pool/updates/main/o/openjdk-8/openjdk-8-jre-headless_8u322-b06-1~deb9u1_amd64.deb
+
+- name: Use Java 8
+  ansible.builtin.shell: update-alternatives --set java /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+
+- name: Install packages
+  apt:
+    pkg:
+      - jsvc
+      - curl
+      - net-tools
+    state: latest
+
+- name: Add the Mongodb repository Apt signing key
+  ansible.builtin.apt_key:
+    url: https://www.mongodb.org/static/pgp/server-4.4.asc
+    state: present
+    keyring: /etc/apt/trusted.gpg.d/mongodb-org-4.4.gpg
+
+- name: Add Mongodb repository
+  ansible.builtin.apt_repository:
+    repo: deb http://repo.mongodb.org/apt/debian buster/mongodb-org/4.4 main
+    state: present
+    filename: mongodb-org-4.4
+  changed_when: false
+
+- name: Install Mongodb package
+  apt:
+    name: mongodb-org
+    state: present
+    update_cache: true
+
+- name: Install Omada controller
+  ansible.builtin.apt:
+    deb: "https://static.tp-link.com/upload/software/2022/202211/20221121/Omada_SDN_Controller_v{{ omada_version }}_Linux_x64.deb"
+  notify:
+    - start omada
