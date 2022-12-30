@@ -1,0 +1,19 @@
+---
+http:
+  middlewares:
+    test-redirectregex:
+      redirectRegex:
+        regex: "^http://pihole\\.test[/]{0,1}$"
+        replacement: "http://pihole.test/admin"
+        permanent: true
+
+  routers:
+    to-pihole:
+      rule: "Host(`pihole.test`)"
+      service: pihole
+
+  services:
+    pihole:
+      loadBalancer:
+        servers:
+          - url: http://pihole.max.local:80
