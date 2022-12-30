@@ -108,12 +108,8 @@ variable "omada_mac" {
 #   default = "46:C9:FE:07:A1:CF"
 # }
 
-# variable "mosquitto_mac" {
-#   type    = string
-#   default = "46:C9:31:FC:D4:4A"
-# }
+variable "pihole_mac" {
+  type    = string
+  default = "46:C8:F9:D1:A5:1F"
+}
 
-# variable "diyhue_mac" {
-#   type    = string
-#   default = "46:C9:77:B4:37:E0"
-# }

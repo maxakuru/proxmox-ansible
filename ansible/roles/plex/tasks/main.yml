@@ -47,7 +47,7 @@
 - name: Copy systemd override file to server
   ansible.builtin.copy:
     src: override.service
-    dest: /etc/systemd/system/plexmediaserver.service.d
+    dest: /etc/systemd/system/plexmediaserver.service.d/
     owner: root
     group: root
     mode: 0644

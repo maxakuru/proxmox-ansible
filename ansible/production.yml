@@ -20,6 +20,7 @@ all:
         dash.max.local:
         wireguard.max.local:
         omada.max.local:
+        pihole.max.local:
         
     traefik:
       hosts:
@@ -75,3 +76,6 @@ all:
     omada:
       hosts:
         omada.max.local:
+    pihole:
+      hosts:
+        pihole.max.local:

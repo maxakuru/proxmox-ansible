@@ -115,20 +115,14 @@ variable "omada_ip" {
 #   default = "192.168.1.80/24"
 # }
 
-# hue hub -> 192.168.1.81
+variable "pihole_ip" {
+  type    = string
+  default = "192.168.1.81/24"
+}
+
 # right orb (hackbulb) -> 192.168.1.82
 # bed tower (yeelight) -> 192.168.1.83
 # other? not used (yeelight) -> 192.168.1.84
-
-# variable "mosquitto_ip" {
-#   type    = string
-#   default = "192.168.1.86/24"
-# }
-
-# variable "diyhue_ip" {
-#   type    = string
-#   default = "192.168.1.87/24"
-# }
 
 // ---- after DHCP range (>220) ----
 

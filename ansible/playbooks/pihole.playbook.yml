@@ -1,0 +1,5 @@
+---
+- hosts: pihole
+  roles:
+    - { role: common, tags: all }
+    - { role: pihole, tags: pihole }

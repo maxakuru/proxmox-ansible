@@ -14,9 +14,14 @@ terraform apply
 terraform apply -parallelism=2
 ```
 
+#### apply single module
+```sh
+terraform apply -target=module.proxmox_lxc.RESOURCE_NAME
+```
+
 #### destroy container
 ```sh
-terraform destroy -target=proxmox_lxc.traefik
+terraform destroy -target=proxmox_lxc.RESOURCE_NAME
 ```
 
 #### forget container
@@ -31,7 +36,7 @@ terraform state rm 'proxmox_lxc.HOST_NAME'
 
 #### run a single playbook
 ```sh
-ansible-playbook ./site.yml
+ansible-playbook ./playbooks/NAME.playbook.yml
 ```
 
 #### run all playbooks

@@ -1,0 +1,74 @@
+---
+- name: Include vars
+  ansible.builtin.include_vars: ../../../../data/ansible/ansible_vars.yml
+
+- name: Install packages
+  apt:
+    pkg:
+      - curl
+    state: latest
+    update_cache: true
+
+- name: Create pihole group
+  group:
+    name: pihole
+    gid: "{{ default_group }}"
+    state: present
+
+- name: Create pihole user
+  user:
+    name: pihole
+    group: pihole
+    shell: /sbin/nologin
+    state: present
+    uid: "{{ default_user }}"
+    create_home: false
+    
+- name: Create data directory
+  ansible.builtin.file:
+    path: /mnt/appdata/pihole/data
+    state: directory
+    mode: 0775
+
+- name: Create pihole conf directory
+  ansible.builtin.file:
+    path: /etc/pihole
+    state: directory
+    mode: 0755
+
+- name: Copy conf file to server
+  # become: true
+  # become_user: pihole
+  # become_method: su
+  # become_flags: '-s /bin/sh'
+  copy:
+    src: pihole-FTL.conf
+    dest: /etc/pihole/
+    owner: "{{ default_user }}"
+    group: "{{ default_group }}"
+    mode: 0644
+
+- name: Copy setupVars file to server
+  copy:
+    src: setupVars.conf
+    dest: /etc/pihole/
+    owner: "{{ default_user }}"
+    group: "{{ default_group }}"
+    mode: 0644
+
+- name: Install pihole with one-step script
+  ansible.builtin.shell: curl -L https://install.pi-hole.net | bash /dev/stdin --unattended
+
+# TODO:
+# stop pihole
+# move db files: /etc/pihole/pihole-FTL.db, /etc/pihole/macvendor.db
+
+# - name: Change ownership of pihole data directory
+#   ansible.builtin.file:
+#     path: /mnt/appdata/pihole/data
+#     state: directory
+#     recursive: true
+#     owner: pihole
+#     group: pihole
+
+# start pihole

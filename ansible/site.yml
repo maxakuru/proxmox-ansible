@@ -17,3 +17,5 @@
 # - import_playbook: ./playbooks/dash.playbook.yml
 # - import_playbook: ./playbooks/nextcloud.playbook.yml
 - import_playbook: ./playbooks/omada.playbook.yml
+- import_playbook: ./playbooks/pihole.playbook.yml
+

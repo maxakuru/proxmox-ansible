@@ -5,7 +5,7 @@
 - name: Create group
   ansible.builtin.group:
     name: omada
-    gid: "{{ media_group }}"
+    gid: 1001
     state: present
 
 - name: Create user

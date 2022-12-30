@@ -119,15 +119,10 @@ variable "omada_lxcid" {
 
 # variable "homeassistant_lxcid" {
 #   type    = number
-#   default = 80
+#   default = 580
 # }
 
-# variable "mosquitto_lxcid" {
-#   type    = number
-#   default = 81
-# }
-
-# variable "diyhue_lxcid" {
-#   type    = number
-#   default = 82
-# }
+variable "pihole_lxcid" {
+  type    = number
+  default = 581
+}
