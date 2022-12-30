@@ -2,7 +2,7 @@
 http:
   routers:
     to-sonarr:
-      rule: "Host(`tv.test`)"
+      rule: "Host(`tv.test`, `sonarr.test`)"
       service: sonarr
 
   services:

@@ -3,5 +3,5 @@
 http:
   routers:
     api:
-      rule: "Host(`traefik.max.local`) || Host(`traefik.test`)"
+      rule: "Host(`traefik.max.local`, `traefik.test`)"
       service: api@internal

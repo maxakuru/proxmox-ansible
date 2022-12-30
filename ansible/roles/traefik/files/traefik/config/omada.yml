@@ -2,7 +2,7 @@
 http:
   routers:
     to-omada:
-      rule: "Host(`omada.test`)"
+      rule: "Host(`omada.test`, `wifi.test`)"
       service: omada
 
   services:

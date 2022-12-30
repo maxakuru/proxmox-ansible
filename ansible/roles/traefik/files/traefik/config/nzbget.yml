@@ -2,7 +2,7 @@
 http:
   routers:
     to-nzbget:
-      rule: "Host(`nzb.test`)"
+      rule: "Host(`nzb.test`, `usenet.test`, `nzbget.test`)"
       service: nzbget
 
   services:

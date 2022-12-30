@@ -2,7 +2,7 @@
 http:
   routers:
     to-deluge:
-      rule: "Host(`torrents.test`)"
+      rule: "Host(`torrents.test`, `deluge.test`)"
       service: deluge
 
   services:

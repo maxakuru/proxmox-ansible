@@ -2,7 +2,7 @@
 http:
   routers:
     to-lidarr:
-      rule: "Host(`music.test`)"
+      rule: "Host(`music.test`, `lidarr.test`)"
       service: lidarr
 
   services:

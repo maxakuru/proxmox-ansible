@@ -2,7 +2,7 @@
 http:
   routers:
     to-homeassistant:
-      rule: "Host(`home.test`) || Host(`homeassistant.test`)"
+      rule: "Host(`home.test`, `homeassistant.test`)"
       service: homeassistant
 
   services:

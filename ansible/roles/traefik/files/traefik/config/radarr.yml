@@ -2,7 +2,7 @@
 http:
   routers:
     to-radarr:
-      rule: "Host(`movies.test`)"
+      rule: "Host(`movies.test`, `radarr.test`)"
       service: radarr
 
   services:

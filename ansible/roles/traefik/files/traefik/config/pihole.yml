@@ -1,15 +1,17 @@
 ---
 http:
   middlewares:
-    test-redirectregex:
+    pihole-redirect-to-admin:
       redirectRegex:
-        regex: "^http://pihole\\.test[/]{0,1}$"
-        replacement: "http://pihole.test/admin"
+        regex: "^(http:\\/\\/(\\[[\\w:.]+\\]|[\\w\\._-]+)(:\\d+)?)\\/$"
+        replacement: "${1}//admin"
         permanent: true
 
   routers:
     to-pihole:
       rule: "Host(`pihole.test`)"
+      middlewares:
+      - pihole-redirect-to-admin
       service: pihole
 
   services:
