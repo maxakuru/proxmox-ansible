@@ -31,7 +31,7 @@
     group: traefik
 
 # /etc/fstab
-# //{smb_ip}/appdata_big/overseerr_dmz cifs username=overseerr,password={password} 0 0
+# //{smb_ip}/appdata_big/traefik_dmz cifs username=traefik,password={password} 0 0
 # - name: Mount network share
 #   ansible.posix.mount:
 #     src: "//{{ smb_ip }}/appdata_big/traefik_dmz"
