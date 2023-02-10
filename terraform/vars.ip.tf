@@ -153,3 +153,13 @@ variable "traefik_ip" {
   type    = string
   default = "192.168.1.250/24"
 }
+
+variable "traefik_dmz_ip" {
+  type    = string
+  default = "10.10.1.250/24"
+}
+
+variable "overseerr_dmz_ip" {
+  type    = string
+  default = "10.10.1.17/24"
+}

@@ -2,14 +2,6 @@
 - name: Include vars
   ansible.builtin.include_vars: ../../../../data/ansible/ansible_vars.yml
 
-- name: Install Traefik
-  ansible.builtin.unarchive:
-    src: https://github.com/traefik/traefik/releases/download/v2.9.6/traefik_v2.9.6_linux_amd64.tar.gz
-    dest: /usr/local/bin
-    remote_src: true
-  notify:
-    - restart traefik
-
 - name: Create Traefik group
   ansible.builtin.group:
     name: traefik
@@ -20,10 +12,41 @@
   ansible.builtin.user:
     name: traefik
     group: traefik
-    uid: "{{ default_user }}"
+    uid: 1002
     shell: /sbin/nologin
     state: present
     create_home: false
+
+- name: get cifs package
+  ansible.builtin.package:
+    name: cifs-utils
+    state: present
+
+- name: make mountpoint if needed
+  ansible.builtin.file:
+    path: "/mnt/appdata/traefik_dmz"
+    state: directory
+    mode: "0755"
+    owner: traefik
+    group: traefik
+
+# /etc/fstab
+# //{smb_ip}/appdata_big/overseerr_dmz cifs username=overseerr,password={password} 0 0
+# - name: Mount network share
+#   ansible.posix.mount:
+#     src: "//{{ smb_ip }}/appdata_big/traefik_dmz"
+#     path: "/mnt/appdata/traefik_dmz"
+#     fstype: cifs
+#     opts: 'username=traefik,password={{ traefik_smb_password }}'
+#     state: mounted
+
+- name: Install Traefik
+  ansible.builtin.unarchive:
+    src: https://github.com/traefik/traefik/releases/download/v2.9.6/traefik_v2.9.6_linux_amd64.tar.gz
+    dest: /usr/local/bin
+    remote_src: true
+  notify:
+    - restart traefik
 
 - name: Set port binding capability on Traefik
   community.general.capabilities:

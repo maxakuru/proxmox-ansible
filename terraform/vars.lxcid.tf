@@ -126,3 +126,13 @@ variable "pihole_lxcid" {
   type    = number
   default = 581
 }
+
+variable "traefik_dmz_vmid" {
+  type    = number
+  default = 600
+}
+
+variable "overseerr_dmz_vmid" {
+  type    = number
+  default = 601
+}

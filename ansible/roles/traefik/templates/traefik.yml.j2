@@ -18,11 +18,3 @@ api:
 
 accessLog:
   filePath: "/mnt/appdata/traefik/logs/access.log"
-
-certificatesResolvers:
-  letsencrypt:
-    acme:
-      email: "{{ acme_email }}"
-      storage: /mnt/appdata/traefik/acme.json
-      dnsChallenge:
-        provider: "cloudflare"

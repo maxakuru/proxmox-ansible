@@ -4,11 +4,6 @@ http:
     to-plex:
       rule: "Host(`plex.test`)"
       service: plex
-    to-plex-secure:
-      rule: Host(`plex.{{ env "DOMAIN_1" }}`)
-      service: plex
-      tls:
-        certResolver: letsencrypt
 
   services:
     plex:

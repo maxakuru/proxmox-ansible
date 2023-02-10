@@ -28,6 +28,12 @@ variable "gateway_ip" {
   default     = "192.168.1.1"
 }
 
+variable "gateway_dmz_ip" {
+  description = "dmz gateway IP"
+  type        = string
+  default     = "10.10.1.1"
+}
+
 variable "temp_root_password" {
   description = "The temporary root password"
   type        = string

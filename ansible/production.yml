@@ -3,6 +3,7 @@ all:
     common:
       hosts:
         traefik.max.local:
+        traefik.dmz.local:
         plex.max.local:
         prowlarr.max.local:
         sonarr.max.local:
@@ -11,6 +12,7 @@ all:
         bazarr.max.local:
         tdarr.max.local:
         overseerr.max.local:
+        overseerr.dmz.local:
         deluge.max.local:
         nextcloud.max.local:
         readarr.max.local:
@@ -25,6 +27,9 @@ all:
     traefik:
       hosts:
         traefik.max.local:
+    traefik_dmz:
+      hosts:
+        traefik.dmz.local:
     plex:
       hosts:
         plex.max.local:
@@ -49,6 +54,9 @@ all:
     overseerr:
       hosts:
         overseerr.max.local:
+    overseerr_dmz:
+      hosts:
+        overseerr.dmz.local:
     deluge:
       hosts:
         deluge.max.local:

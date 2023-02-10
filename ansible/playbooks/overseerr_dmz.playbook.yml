@@ -1,0 +1,5 @@
+---
+- hosts: overseerr_dmz
+  roles:
+    - { role: common, tags: all }
+    - { role: overseerr_dmz, tags: overseerr_dmz }

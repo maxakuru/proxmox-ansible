@@ -1,0 +1,91 @@
+---
+- name: Include vars
+  ansible.builtin.include_vars: ../../../../data/ansible/ansible_vars.yml
+
+- name: Install packages
+  apt:
+    pkg:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - software-properties-common
+      - python3-pip
+      - virtualenv
+      - python3-setuptools
+    state: latest
+    update_cache: true
+
+- name: Create Overseerr group
+  group:
+    name: overseerr
+    gid: "{{ default_group }}"
+    state: present
+
+- name: Create Overseerr user
+  user:
+    name: overseerr
+    groups: overseerr
+    shell: /sbin/nologin
+    append: yes
+    state: present
+    uid: 1003
+    create_home: no
+
+- name: get cifs package
+  ansible.builtin.package:
+    name: cifs-utils
+    state: present
+
+- name: make mountpoint if needed
+  ansible.builtin.file:
+    path: "/mnt/appdata/overseerr_dmz"
+    state: directory
+    mode: "0755"
+    owner: overseerr
+    group: overseerr
+
+# /etc/fstab
+# //{smb_ip}/appdata_big/overseerr_dmz cifs username=overseerr,password={password} 0 0
+# - name: Mount network share
+#   ansible.posix.mount:
+#     src: "//{{ smb_ip }}/appdata_big/overseerr_dmz"
+#     path: "/mnt/appdata/overseerr_dmz"
+#     fstype: cifs
+#     opts: 'username=overseerr,password={{ overseerr_smb_password }}'
+#     state: mounted
+
+- name: Add the Docker repository Apt signing key
+  ansible.builtin.apt_key:
+    url: https://download.docker.com/linux/debian/gpg
+    state: present
+    keyring: /etc/apt/trusted.gpg.d/docker.gpg
+
+- name: Add Docker repository
+  ansible.builtin.apt_repository:
+    repo: deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/docker.gpg] https://download.docker.com/linux/debian bullseye stable
+    state: present
+  changed_when: false
+
+- name: Install packages
+  apt:
+    pkg:
+      - docker-ce 
+    state: latest
+
+- name: Install Docker Module for Python
+  pip:
+    name: docker
+
+- name: Create Overseerr container
+  community.docker.docker_container:
+    name: overseerr
+    image: sctx/overseerr
+    restart: true
+    restart_policy: "unless-stopped"
+    volumes:
+      - /mnt/appdata/overseerr_dmz:/app/config
+    published_ports:
+      - "5055:5055"
+    env:
+      TZ: America/Los_Angeles
+    user: 1003

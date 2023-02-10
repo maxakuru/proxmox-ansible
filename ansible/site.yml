@@ -1,5 +1,6 @@
 ---
 - import_playbook: ./playbooks/traefik.playbook.yml
+- import_playbook: ./playbooks/traefik_dmz.playbook.yml
 - import_playbook: ./playbooks/plex.playbook.yml
 - import_playbook: ./playbooks/bazarr.playbook.yml
 - import_playbook: ./playbooks/deluge.playbook.yml
@@ -12,6 +13,7 @@
 - import_playbook: ./playbooks/wireguard.playbook.yml
 # - import_playbook: ./playbooks/plexmetamanager.playbook.yml
 - import_playbook: ./playbooks/overseerr.playbook.yml
+- import_playbook: ./playbooks/overseerr_dmz.playbook.yml
 # - import_playbook: ./playbooks/readarr.playbook.yml
 # - import_playbook: ./playbooks/vaultwarden.playbook.yml
 # - import_playbook: ./playbooks/dash.playbook.yml

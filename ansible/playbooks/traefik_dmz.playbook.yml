@@ -1,0 +1,5 @@
+---
+- hosts: traefik_dmz
+  roles:
+    - { role: common, tags: all }
+    - { role: traefik_dmz, tags: traefik_dmz }

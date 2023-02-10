@@ -1,0 +1,7 @@
+# yaml-language-server: $schema=https://json.schemastore.org/traefik-v2-file-provider.json
+---
+http:
+  routers:
+    api:
+      rule: "Host(`traefik.dmz.local`)"
+      service: api@internal

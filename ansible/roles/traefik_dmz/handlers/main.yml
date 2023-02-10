@@ -1,0 +1,12 @@
+---
+- name: start traefik
+  systemd:
+    name: traefik
+    state: started
+    enabled: true
+
+- name: restart traefik
+  systemd:
+    name: traefik
+    state: restarted
+    daemon_reload: true

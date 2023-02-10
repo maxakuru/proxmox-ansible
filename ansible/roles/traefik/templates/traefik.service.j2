@@ -2,9 +2,6 @@
 Description=Traefik service
 
 [Service]
-Environment="CLOUDFLARE_API_KEY={{ cloudflare_api_key }}"
-Environment="CLOUDFLARE_EMAIL={{ cloudflare_email }}"
-Environment="DOMAIN_1={{ domain_1 }}"
 User=traefik
 Group=traefik
 ExecStart=traefik

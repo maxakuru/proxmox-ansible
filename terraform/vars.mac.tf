@@ -7,6 +7,16 @@ variable "traefik_mac" {
     default = "B6:1A:E1:C6:86:03"
 }
 
+variable "traefik_dmz_mac" {
+    type    = string
+    default = "B6:1A:E1:C6:86:04"
+}
+
+variable "overseerr_dmz_mac" {
+    type    = string
+    default = "B6:1A:E1:C6:86:05"
+}
+
 # variable "samba_mac" {
 #     type    = string
 #     default = "46:C7:9A:E0:57:CB"
