@@ -8,6 +8,7 @@ all:
         prowlarr.max.local:
         sonarr.max.local:
         radarr.max.local:
+        radarr4k.max.local:
         nzbget.max.local:
         bazarr.max.local:
         tdarr.max.local:
@@ -42,6 +43,9 @@ all:
     radarr:
       hosts:
         radarr.max.local:
+    radarr_4k:
+      hosts:
+        radarr4k.max.local:
     nzbget:
       hosts:
         nzbget.max.local:

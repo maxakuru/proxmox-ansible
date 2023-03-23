@@ -14,9 +14,9 @@ terraform apply
 terraform apply -parallelism=2
 ```
 
-#### apply single module
+#### apply single resource
 ```sh
-terraform apply -target=module.proxmox_lxc.RESOURCE_NAME
+terraform apply -target=proxmox_lxc.RESOURCE_NAME
 ```
 
 #### destroy container

@@ -8,6 +8,7 @@
 - import_playbook: ./playbooks/nzbget.playbook.yml
 - import_playbook: ./playbooks/prowlarr.playbook.yml
 - import_playbook: ./playbooks/radarr.playbook.yml
+- import_playbook: ./playbooks/radarr_4k.playbook.yml
 - import_playbook: ./playbooks/sonarr.playbook.yml
 # - import_playbook: ./playbooks/tdarr.playbook.yml
 - import_playbook: ./playbooks/wireguard.playbook.yml

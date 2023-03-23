@@ -28,7 +28,6 @@ variable "plex_lxcid" {
   default = 511
 }
 
-// *arrs
 variable "radarr_lxcid" {
   type    = number
   default = 512
@@ -71,8 +70,6 @@ variable "tdarr_lxcid" {
 
 // ---- 20 ----
 
-// services
-
 variable "dash_lxcid" {
   type    = number
   default = 520
@@ -111,6 +108,11 @@ variable "wireguard_lxcid" {
 variable "omada_lxcid" {
   type    = string
   default = 527
+}
+
+variable "radarr_4k_lxcid" {
+  type    = number
+  default = 528
 }
 
 // ---- 80 ----

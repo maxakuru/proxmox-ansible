@@ -21,7 +21,6 @@ variable "plex_ip" {
   default = "192.168.1.11/24"
 }
 
-// *arr
 variable "radarr_ip" {
   type    = string
   default = "192.168.1.12/24"
@@ -64,8 +63,6 @@ variable "tdarr_ip" {
 
 // ---- 20 ----
 
-// services
-
 variable "dash_ip" {
   type    = string
   default = "192.168.1.20/24"
@@ -104,6 +101,11 @@ variable "wireguard_ip" {
 variable "omada_ip" {
   type    = string
   default = "192.168.1.27/24"
+}
+
+variable "radarr_4k_ip" {
+  type    = string
+  default = "192.168.1.28/24"
 }
 
 // ---- 80 ----

@@ -4,7 +4,7 @@
     name: radarr
     state: restarted
     enabled: true
-
+    
 - name: restart radarr
   systemd:
     name: radarr

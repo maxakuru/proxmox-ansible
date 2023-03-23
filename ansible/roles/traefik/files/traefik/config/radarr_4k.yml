@@ -1,0 +1,12 @@
+---
+http:
+  routers:
+    to-radarr-4k:
+      rule: "Host(`movies4k.test`, `radarr4k.test`)"
+      service: radarr_4k
+
+  services:
+    radarr_4k:
+      loadBalancer:
+        servers:
+          - url: http://radarr4k.max.local:7878

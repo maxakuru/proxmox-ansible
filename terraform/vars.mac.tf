@@ -27,11 +27,14 @@ variable "plex_mac" {
     default = "46:C7:F9:07:98:0F"
 }
 
-// *arr
-
 variable "radarr_mac" {
   type    = string
   default = "46:C7:05:AE:A4:09"
+}
+
+variable "radarr_4k_mac" {
+  type    = string
+  default = "46:C7:05:AE:A4:0A"
 }
 
 variable "sonarr_mac" {
@@ -68,8 +71,6 @@ variable "tdarr_mac" {
   type    = string
   default = "46:C7:B4:65:AF:91"
 }
-
-// services
 
 variable "dash_mac" {
     type    = string
