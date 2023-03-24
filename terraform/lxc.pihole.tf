@@ -26,8 +26,8 @@ resource "proxmox_lxc" "pihole" {
     size    = "8G"
     slot    = 0
     key     = "0"
-    storage = "/mnt/big/appdata/pihole"
-    volume  = "/mnt/big/appdata/pihole"
+    storage = "/mnt/pve/safe/appdata/pihole"
+    volume  = "/mnt/pve/safe/appdata/pihole"
   }
 
   mountpoint {
@@ -35,8 +35,8 @@ resource "proxmox_lxc" "pihole" {
     size    = "8G"
     slot    = 1
     key     = "1"
-    storage = "/mnt/big/appdata/pihole/log/lighttpd"
-    volume  = "/mnt/big/appdata/pihole/log/lighttpd"
+    storage = "/mnt/pve/safe/appdata/pihole/log/lighttpd"
+    volume  = "/mnt/pve/safe/appdata/pihole/log/lighttpd"
   }
 
   network {
