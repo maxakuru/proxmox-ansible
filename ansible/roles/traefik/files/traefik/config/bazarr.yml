@@ -2,7 +2,7 @@
 http:
   routers:
     to-bazarr:
-      rule: "Host(`bazarr.test`)"
+      rule: "Host(`bazarr.test`, `subtitles.test`)"
       service: bazarr
 
   services:
