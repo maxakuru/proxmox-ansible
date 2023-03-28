@@ -6,7 +6,7 @@ resource "proxmox_lxc" "plex" {
   start           = true
   onboot          = true
   vmid            = var.plex_lxcid
-  memory          = 8192
+  memory          = 16384
   swap            = 512
   cores           = 16
   password        = var.temp_root_password

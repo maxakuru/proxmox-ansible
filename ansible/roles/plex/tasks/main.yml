@@ -44,9 +44,17 @@
     update_cache: true
   notify: restart plex
 
+- name: Copy fstab with ramdisk mount
+  ansible.builtin.copy:
+    src: fstab
+    dest: /etc/
+    owner: root
+    group: root
+    mode: 0777
+
 - name: Copy systemd override file to server
   ansible.builtin.copy:
-    src: override.service
+    src: override.conf
     dest: /etc/systemd/system/plexmediaserver.service.d/
     owner: root
     group: root
