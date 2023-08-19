@@ -115,6 +115,11 @@ variable "radarr_4k_lxcid" {
   default = 528
 }
 
+variable "fabric_lxcid" {
+  type    = number
+  default = 529
+}
+
 // ---- 80 ----
 
 // smarthome

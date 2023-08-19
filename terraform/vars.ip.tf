@@ -108,6 +108,11 @@ variable "radarr_4k_ip" {
   default = "192.168.1.28/24"
 }
 
+variable "fabric_ip" {
+  type    = string
+  default = "192.168.1.29/24"
+}
+
 // ---- 80 ----
 
 // smarthome

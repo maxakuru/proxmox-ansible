@@ -10,6 +10,7 @@
 - import_playbook: ./playbooks/radarr.playbook.yml
 - import_playbook: ./playbooks/radarr_4k.playbook.yml
 - import_playbook: ./playbooks/sonarr.playbook.yml
+- import_playbook: ./playbooks/fabric.playbook.yml
 # - import_playbook: ./playbooks/tdarr.playbook.yml
 - import_playbook: ./playbooks/wireguard.playbook.yml
 # - import_playbook: ./playbooks/plexmetamanager.playbook.yml

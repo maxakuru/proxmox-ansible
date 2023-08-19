@@ -1,0 +1,19 @@
+[Unit]
+Description=Fabric Daemon
+After=syslog.target network.target
+
+[Service]
+WorkingDirectory=/mnt/appdata/fabric
+User=fabric
+Group=fabric
+Restart=on-failure
+RestartSec=5
+Type=simple
+ExecStart=java -Xmx7G -jar server.jar nogui
+KillSignal=SIGINT
+TimeoutStopSec=20
+SyslogIdentifier=fabric
+ExecStartPre=/bin/sleep 30
+
+[Install]
+WantedBy=multi-user.target

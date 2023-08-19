@@ -1,0 +1,55 @@
+---
+- name: Include vars
+  ansible.builtin.include_vars: ../../../../data/ansible/ansible_vars.yml
+
+- name: Create group
+  ansible.builtin.group:
+    name: fabric
+    gid: "{{ media_group }}"
+    state: present
+
+- name: Create user
+  ansible.builtin.user:
+    name: fabric
+    group: fabric
+    uid: "{{ media_user }}"
+    shell: /sbin/nologin
+    state: present
+    create_home: false
+
+- name: add sid repo to sources.list
+  ansible.builtin.apt_repository:
+    repo: deb http://deb.debian.org/debian/ sid main
+    state: present
+
+- name: Install packages
+  apt:
+    pkg:
+      - openjdk-22-jre-headless
+    state: latest
+
+- name: Copy mods folder
+  ansible.builtin.copy:
+    src: mods
+    dest: /mnt/appdata/fabric/mods
+    mode: 0644
+  notify:
+    - restart fabric
+
+- name: Copy server jar
+  ansible.builtin.copy:
+    src: fabric-server-mc.1.20.1-loader.0.14.22-launcher.0.11.2.jar
+    dest: /mnt/appdata/fabric/server.jar
+    mode: 0755
+  notify:
+    - restart fabric
+
+- name: Create service
+  ansible.builtin.template:
+    src: fabric.service.j2
+    dest: /etc/systemd/system/fabric.service
+    mode: 0644
+    owner: root
+    group: root
+  notify:
+    - start fabric

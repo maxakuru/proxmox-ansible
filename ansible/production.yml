@@ -24,6 +24,7 @@ all:
         wireguard.max.local:
         omada.max.local:
         pihole.max.local:
+        fabric.max.local:
         
     traefik:
       hosts:
@@ -91,3 +92,6 @@ all:
     pihole:
       hosts:
         pihole.max.local:
+    fabric:
+      hosts:
+        fabric.max.local:

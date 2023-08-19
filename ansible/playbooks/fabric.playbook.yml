@@ -1,0 +1,5 @@
+---
+- hosts: fabric
+  roles:
+    - { role: common, tags: all }
+    - { role: fabric, tags: fabric }
