@@ -53,3 +53,11 @@
     group: root
   notify:
     - start fabric
+
+- name: Agree EULA
+  ansible.builtin.template:
+    src: eula.txt.j2
+    dest: /mnt/appdata/fabric/eula.txt
+    mode: 0644
+  notify:
+    - start fabric
