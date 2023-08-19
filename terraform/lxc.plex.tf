@@ -9,6 +9,7 @@ resource "proxmox_lxc" "plex" {
   memory          = 16384
   swap            = 512
   cores           = 16
+  startup         = "order=1"
   password        = var.temp_root_password
   clone           = var.base_lxcid // gives lxc.idmap needed for mounts
 

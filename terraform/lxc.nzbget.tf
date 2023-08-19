@@ -7,7 +7,7 @@ resource "proxmox_lxc" "nzbget" {
   onboot          = true
   ssh_public_keys = file(var.pub_ssh_key)
   vmid            = var.nzbget_lxcid
-  memory          = 2048
+  memory          = 16384
   swap            = 512
   cores           = 2
   password        = var.temp_root_password

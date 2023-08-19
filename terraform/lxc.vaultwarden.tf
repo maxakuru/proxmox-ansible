@@ -4,7 +4,7 @@ resource "proxmox_lxc" "vaultwarden" {
   ostemplate      = "local:vztmpl/debian-11-standard_11.3-1_amd64.tar.zst"
   unprivileged    = true
   start           = true
-  onboot          = true
+  onboot          = false
   ssh_public_keys = file(var.pub_ssh_key)
   vmid            = var.vaultwarden_lxcid
   memory          = 2048

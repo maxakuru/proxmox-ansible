@@ -4,7 +4,7 @@ resource "proxmox_lxc" "tdarr" {
   ostemplate      = "local:vztmpl/debian-11-standard_11.3-1_amd64.tar.zst"
   unprivileged    = true
   start           = true
-  onboot          = true
+  onboot          = false
   vmid            = var.tdarr_lxcid
   memory          = 2048
   swap            = 512

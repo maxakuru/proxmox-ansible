@@ -9,6 +9,7 @@ resource "proxmox_lxc" "pihole" {
   memory          = 2048
   swap            = 512
   cores           = 2
+  startup         = "order=1"
   password        = var.temp_root_password
   clone           = var.base_lxcid // gives lxc.idmap needed for mounts
 

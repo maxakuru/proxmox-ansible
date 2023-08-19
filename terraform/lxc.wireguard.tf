@@ -5,7 +5,7 @@ resource "proxmox_lxc" "wireguard" {
   unprivileged    = true
   ssh_public_keys = file(var.pub_ssh_key)
   start           = true
-  onboot          = true
+  onboot          = false
   vmid            = var.wireguard_lxcid
   memory          = 2048
   swap            = 512

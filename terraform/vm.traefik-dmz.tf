@@ -5,7 +5,7 @@ resource "proxmox_vm_qemu" "traefik-dmz" {
   os_type         = "ubuntu"
   onboot          = true
   vmid            = var.traefik_dmz_vmid
-  memory          = 2048
+  memory          = 4096
   cores           = 2
 
   # manually add /root/.ssh/authorized_keys
