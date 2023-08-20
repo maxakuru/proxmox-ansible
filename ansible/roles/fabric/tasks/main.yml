@@ -5,17 +5,25 @@
 - name: Create group
   ansible.builtin.group:
     name: fabric
-    gid: "{{ media_group }}"
+    gid: "{{ default_group }}"
     state: present
 
 - name: Create user
   ansible.builtin.user:
     name: fabric
     group: fabric
-    uid: "{{ media_user }}"
+    uid: "{{ default_user }}"
     shell: /sbin/nologin
     state: present
     create_home: false
+
+- name: Recursively change ownership of Fabric directory
+  ansible.builtin.file:
+    path: /opt/fabric/
+    state: directory
+    recurse: true
+    owner: fabric
+    group: fabric
 
 - name: add sid repo to sources.list
   ansible.builtin.apt_repository:
@@ -25,21 +33,18 @@
 - name: Install packages
   apt:
     pkg:
-      - openjdk-22-jre-headless
+      - openjdk-17-jre-headless
     state: latest
 
-- name: Copy mods folder
+- name: Sync mods folder
   ansible.builtin.copy:
-    src: mods
-    dest: /mnt/appdata/fabric/mods
-    mode: 0644
-  notify:
-    - restart fabric
+    src: mods/
+    dest: /opt/fabric/mods/
 
 - name: Copy server jar
   ansible.builtin.copy:
     src: fabric-server-mc.1.20.1-loader.0.14.22-launcher.0.11.2.jar
-    dest: /mnt/appdata/fabric/server.jar
+    dest: /opt/fabric/server.jar
     mode: 0755
   notify:
     - restart fabric
@@ -57,7 +62,15 @@
 - name: Agree EULA
   ansible.builtin.template:
     src: eula.txt.j2
-    dest: /mnt/appdata/fabric/eula.txt
+    dest: /opt/fabric/eula.txt
     mode: 0644
   notify:
     - start fabric
+
+- name: Create server.properties
+  ansible.builtin.template:
+    src: server.properties.j2
+    dest: /opt/fabric/server.properties
+    mode: 0664
+  notify:
+    - restart fabric

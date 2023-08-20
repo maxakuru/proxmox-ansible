@@ -21,13 +21,24 @@ resource "proxmox_lxc" "fabric" {
     size    = "4G"
   }
 
+  // world save data
   mountpoint {
-    mp      = "/mnt/appdata/fabric"
+    mp      = "/opt/fabric/world"
     size    = "8G"
     slot    = 0
     key     = "0"
-    storage = "/mnt/big/appdata/fabric"
-    volume  = "/mnt/big/appdata/fabric"
+    storage = "/mnt/big/appdata/fabric/world"
+    volume  = "/mnt/big/appdata/fabric/world"
+  }
+
+  // use hdd scratch for mods because EasyAuth requires mmap
+  mountpoint {
+    mp      = "/opt/fabric/mods"
+    size    = "8G"
+    slot    = 0
+    key     = "0"
+    storage = "/mnt/pve/safe/appdata/fabric/mods"
+    volume  = "/mnt/pve/safe/appdata/fabric/mods"
   }
 
   network {
