@@ -1,0 +1,14 @@
+---
+http:
+  routers:
+    to-fabric-secure:
+      rule: Host(`mc.{{ env "DOMAIN_1" }}`)
+      service: fabric
+      tls:
+        certResolver: letsencrypt
+
+  services:
+    fabric:
+      loadBalancer:
+        servers:
+          - url: http://fabric.max.local:25565

@@ -1,0 +1,12 @@
+---
+http:
+  routers:
+    to-tautulli:
+      rule: "Host(`tautulli.test`)"
+      service: tautulli
+
+  services:
+    tautulli:
+      loadBalancer:
+        servers:
+          - url: http://tautulli.max.local:8181
