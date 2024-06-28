@@ -25,6 +25,7 @@ all:
         omada.max.local:
         pihole.max.local:
         fabric.max.local:
+        geyser.max.local:
         
     traefik:
       hosts:
@@ -95,3 +96,6 @@ all:
     fabric:
       hosts:
         fabric.max.local:
+    geyser:
+      hosts:
+        geyser.max.local:

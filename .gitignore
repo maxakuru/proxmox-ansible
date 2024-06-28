@@ -6,3 +6,4 @@ data/
 *.tfvars.json
 *.backup
 *.deb
+._*

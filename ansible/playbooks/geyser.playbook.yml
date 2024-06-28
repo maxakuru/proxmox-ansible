@@ -1,0 +1,5 @@
+---
+- hosts: geyser
+  roles:
+    - { role: common, tags: all }
+    - { role: geyser, tags: geyser }

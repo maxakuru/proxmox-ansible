@@ -42,6 +42,11 @@ variable "fabric_mac" {
   default = "46:C7:05:AE:A4:0B"
 }
 
+variable "geyser_mac" {
+  type    = string
+  default = "46:C7:05:AE:A4:0C"
+}
+
 variable "sonarr_mac" {
   type    = string
   default = "46:C7:6E:2E:7E:13"

@@ -1,0 +1,95 @@
+---
+- name: Include vars
+  ansible.builtin.include_vars: ../../../../data/ansible/ansible_vars.yml
+
+- name: Create group
+  ansible.builtin.group:
+    name: fabric
+    gid: "{{ default_group }}"
+    state: present
+
+- name: Create user
+  ansible.builtin.user:
+    name: fabric
+    group: fabric
+    uid: "{{ default_user }}"
+    shell: /sbin/nologin
+    state: present
+    create_home: false
+
+- name: Recursively change ownership of Fabric directory
+  ansible.builtin.file:
+    path: /opt/fabric/
+    state: directory
+    recurse: true
+    owner: fabric
+    group: fabric
+
+- name: add sid repo to sources.list
+  ansible.builtin.apt_repository:
+    repo: deb http://deb.debian.org/debian/ sid main
+    state: present
+
+- name: Install packages
+  apt:
+    pkg:
+      - openjdk-21-jre-headless
+    state: latest
+
+- name: Sync mods folder
+  ansible.builtin.copy:
+    src: mods/
+    dest: /opt/fabric/mods/
+
+- name: Sync plugins folder
+  ansible.builtin.copy:
+    src: plugins/
+    dest: /opt/fabric/plugins/
+
+- name: Copy server jar
+  ansible.builtin.copy:
+    src: fabric-server-mc.1.21-loader.0.15.11-launcher.1.0.1.jar
+    dest: /opt/fabric/server.jar
+    mode: 0755
+  notify:
+    - restart fabric
+
+- name: Create service
+  ansible.builtin.template:
+    src: fabric.service.j2
+    dest: /etc/systemd/system/fabric.service
+    mode: 0644
+    owner: root
+    group: root
+  notify:
+    - start fabric
+
+- name: Agree EULA
+  ansible.builtin.template:
+    src: eula.txt.j2
+    dest: /opt/fabric/eula.txt
+    mode: 0644
+  notify:
+    - start fabric
+
+- name: Create Geyser directory if it does not exist
+  ansible.builtin.file:
+    path: /opt/fabric/config/Geyser-Fabric
+    state: directory
+    mode: 0755
+
+- name: Create Geyser config
+  ansible.builtin.template:
+    src: geyser-config.j2
+    dest: /opt/fabric/config/Geyser-Fabric/config.yml
+    mode: 0644
+  notify:
+    - restart fabric
+
+- name: Create server.properties
+  ansible.builtin.template:
+    src: server.properties.j2
+    dest: /opt/fabric/server.properties
+    mode: 0664
+  notify:
+    - restart fabric

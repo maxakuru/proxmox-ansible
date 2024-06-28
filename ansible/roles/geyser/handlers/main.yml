@@ -1,0 +1,12 @@
+---
+- name: start fabric
+  systemd:
+    name: fabric
+    state: started
+    enabled: true
+
+- name: restart fabric
+  systemd:
+    name: fabric
+    state: restarted
+    daemon_reload: true

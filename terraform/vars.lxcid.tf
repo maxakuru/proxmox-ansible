@@ -120,6 +120,11 @@ variable "fabric_lxcid" {
   default = 529
 }
 
+variable "geyser_lxcid" {
+  type    = number
+  default = 530
+}
+
 // ---- 80 ----
 
 // smarthome

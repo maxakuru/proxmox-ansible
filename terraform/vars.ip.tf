@@ -113,6 +113,11 @@ variable "fabric_ip" {
   default = "192.168.1.29/24"
 }
 
+variable "geyser_ip" {
+  type    = string
+  default = "192.168.1.30/24"
+}
+
 // ---- 80 ----
 
 // smarthome

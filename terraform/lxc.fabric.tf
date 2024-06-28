@@ -35,8 +35,8 @@ resource "proxmox_lxc" "fabric" {
   mountpoint {
     mp      = "/opt/fabric/mods"
     size    = "8G"
-    slot    = 0
-    key     = "0"
+    slot    = 1
+    key     = "1"
     storage = "/mnt/pve/safe/appdata/fabric/mods"
     volume  = "/mnt/pve/safe/appdata/fabric/mods"
   }
