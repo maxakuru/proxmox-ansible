@@ -41,11 +41,6 @@
     src: mods/
     dest: /opt/fabric/mods/
 
-- name: Sync plugins folder
-  ansible.builtin.copy:
-    src: plugins/
-    dest: /opt/fabric/plugins/
-
 - name: Copy server jar
   ansible.builtin.copy:
     src: fabric-server-mc.1.21-loader.0.15.11-launcher.1.0.1.jar
